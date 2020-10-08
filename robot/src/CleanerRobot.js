@@ -25,7 +25,7 @@
  * @constructor
  */
 function CleanerRobot(initialEnergy = 0, cleaningSquare,) {
-  let energy = Number(initialEnergy.toFixed(1));
+  let energy = initialEnergy;
   let timerId = 0;
   const ENERGY_CONSUMPTION = 1; /* Расход энергии: 1% батареи на 1 час работы. */
   const CLEANING_SPEED = 10; /* Скорость уборки: 10 квадратных метров в час. */
