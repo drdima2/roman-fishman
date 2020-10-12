@@ -17,6 +17,25 @@
 
 // Решение
 
+function createNumberGenerator(){
+
+    const ar = new Array(100).fill(false);
+
+    function generateNumber(){
+        if (ar.includes(false)) {
+            const rand = Math.floor(Math.random() * 100) + 1;
+            if (ar[rand-1] == true) {
+                return generateNumber()
+            }
+
+            ar[rand-1] = true;
+            return rand;
+        }
+        throw Error('all numbers already generated');
+    }
+    return generateNumber;
+}
+
 const TOTAL_ITERATIONS = 105;
 let invocations = 0;
 const generateNumber = createNumberGenerator();
