@@ -22,6 +22,18 @@
 
 // Решение
 
+function bind (func, obj, ...rest) {
+    if (!(func instanceof Function)) throw 'is not a function';
+    else if (!(obj instanceof Object)) throw 'is not an Object';
+    else if ((obj instanceof Array)) throw 'is not an Object';
+
+    f = () =>{
+        const context = {name: obj.name, func}
+        return context.func(...rest)
+    }
+    return f;
+}
+
 function getName(greeting, message) {
     return `${greeting} ${message} ${this.name}.`;
 }
@@ -33,5 +45,8 @@ const boundedGetName = bind(getName, oliver, 'Hello!', 'I am');
 
 console.log(user.getName('Hello!', 'My name is')); // Hello! My name is Walter.
 console.log(boundedGetName()); // Hello! I am Oliver.
+
+const boundedGetName2 = bind(getName, {}, 'Hello!', 'I am');
+console.log(boundedGetName2());
 
 exports.bind = bind;

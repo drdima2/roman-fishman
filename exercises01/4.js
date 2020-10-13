@@ -34,12 +34,14 @@ function createLogger() {
 
   return {
     call: (func, ...rest) =>{
-      log.push( {
+      if (!(func instanceof Function)) throw Error('is not a function')
+      log.push({
         name: func.name,
         in: rest,
         out: func(...rest)
       })
       return func(...rest);
+
     },
     print: () => {
       return log;
@@ -64,6 +66,10 @@ console.log(logger2.call(sum, 3, 4)); // 7
 console.log(logger2.call(returnIdentity, 9)); // 9
 console.log(logger2.call(returnNothing)); // undefined
 console.log(logger2.print()); // [ { name: 'sum', in: [ 3, 4 ], out: 7 }, { name: 'returnIdentity', in: [ 9 ], out: 9 }, { name: 'returnNothing', in: [], out: undefined } ]
+
+console.log('----------');
+const logger3 = createLogger();
+console.log(logger3.call(123, 3, 4)); // 7
 
 
 exports.createLogger = createLogger;

@@ -18,6 +18,22 @@
  */
 
 // Решение
+function calculate(...rest){
+
+    let num;
+    const func = (num, f) => {
+        return num + f(num);
+    }
+    if (rest.length===1) return func(num, rest[0]);
+
+    rest.pop()
+    return num + calculate(rest);
+    // for (let i=0; i<rest.length; i++){
+    //     return func(rest[i-1],rest[i])
+    // }
+
+
+}
 
 const result = calculate(
     () => {
