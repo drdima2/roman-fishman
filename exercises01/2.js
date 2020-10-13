@@ -10,6 +10,20 @@
  */
 
 // Решение
+function createFibonacciGenerator() {
+
+  const ar = [0,0];
+
+  function generateFibonacciNumber(){
+    let out = ar[0] + ar[1];
+    if (out === 0) out=1;
+    ar[0] = ar[1];
+    ar[1] = out;
+    return out;
+  }
+  return generateFibonacciNumber;
+
+}
 
 const generateFibonacciNumber = createFibonacciGenerator();
 

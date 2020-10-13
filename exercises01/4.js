@@ -28,6 +28,26 @@
 
 // Решение
 
+function createLogger() {
+
+  const log = [];
+
+  return {
+    call: (func, ...rest) =>{
+      log.push( {
+        name: func.name,
+        in: rest,
+        out: func(...rest)
+      })
+      return func(...rest);
+    },
+    print: () => {
+      return log;
+    }
+  }
+
+}
+
 const returnIdentity = n => n;
 const sum = (a, b) => a + b;
 const returnNothing = () => {};
@@ -37,10 +57,13 @@ console.log(logger1.call(returnIdentity, 1)); // 1
 console.log(logger1.call(sum, 1, 2)); // 3
 console.log(logger1.print()); // [ { name: 'returnIdentity', in: [ 1 ], out: 1 }, { name: 'sum', in: [ 1, 2 ], out: 3 } ]
 
+console.log('----------');
+
 const logger2 = createLogger();
 console.log(logger2.call(sum, 3, 4)); // 7
 console.log(logger2.call(returnIdentity, 9)); // 9
 console.log(logger2.call(returnNothing)); // undefined
 console.log(logger2.print()); // [ { name: 'sum', in: [ 3, 4 ], out: 7 }, { name: 'returnIdentity', in: [ 9 ], out: 9 }, { name: 'returnNothing', in: [], out: undefined } ]
+
 
 exports.createLogger = createLogger;
